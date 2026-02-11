@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VitaSalud - Sistema de gestión de citas médicas online">
+    <meta name="author" content="Juan Gabriel Aragón">
+    <title>VitaSalud | Sistema de Citas Médicas</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-icon">🏥</div>
+                    <div class="logo-text">Vita<span>Salud</span></div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-label">Principal</div>
+                <div class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                    </svg>
+                    Dashboard
+                </div>
+                <div class="nav-item active">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    Citas
+                    <span class="nav-badge">5</span>
+                </div>
+                <div class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Pacientes
+                </div>
+                <div class="nav-label">Gestión</div>
+                <div class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Doctores
+                </div>
+                <div class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Reportes
+                </div>
+                <div class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Facturación
+                </div>
+                <div class="nav-label">Sistema</div>
+                <div class="nav-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Configuración
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="user-avatar">JG</div>
+                    <div>
+                        <div class="user-name">Juan Gabriel</div>
+                        <div class="user-role">Recepcionista</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <main class="main">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button id="menu-toggle" class="menu-toggle">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <div>
+                        <div class="topbar-title">Gestión de Citas</div>
+                        <div class="topbar-sub">Martes, 10 de Febrero 2026</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-btn"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg></button>
+                    <button class="topbar-btn"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg></button>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Stats -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon cyan">📅</div>
+                            <span class="stat-change up">↑ 12%</span>
+                        </div>
+                        <div class="stat-value" data-counter="34">0</div>
+                        <div class="stat-label">Citas Hoy</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon green">✅</div>
+                            <span class="stat-change up">↑ 8%</span>
+                        </div>
+                        <div class="stat-value" data-counter="28">0</div>
+                        <div class="stat-label">Atendidos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon purple">👨‍⚕️</div>
+                            <span class="stat-change up">+2</span>
+                        </div>
+                        <div class="stat-value" data-counter="12">0</div>
+                        <div class="stat-label">Doctores Activos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon yellow">⏰</div>
+                            <span class="stat-change up">-5 min</span>
+                        </div>
+                        <div class="stat-value" data-counter="18">0</div>
+                        <div class="stat-label">Tiempo Espera (min)</div>
+                    </div>
+                </div>
+
+                <!-- Main Layout -->
+                <div class="grid-main">
+                    <!-- Left -->
+                    <div class="grid-col">
+                        <!-- Doctors -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">👨‍⚕️ Seleccionar Doctor</span>
+                                <button class="btn btn-ghost" style="font-size:12px;">Ver todos</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="doctors-grid">
+                                    <div class="doctor-card" data-name="Dr. Carlos Mendoza">
+                                        <div class="doctor-avatar av1">👨‍⚕️</div>
+                                        <div class="doctor-name">Dr. Carlos Mendoza</div>
+                                        <div class="doctor-spec">Medicina General</div>
+                                        <div class="doctor-rating">⭐ 4.9</div>
+                                        <div class="doctor-avail">✓ Disponible</div>
+                                    </div>
+                                    <div class="doctor-card" data-name="Dra. María López">
+                                        <div class="doctor-avatar av2">👩‍⚕️</div>
+                                        <div class="doctor-name">Dra. María López</div>
+                                        <div class="doctor-spec">Pediatría</div>
+                                        <div class="doctor-rating">⭐ 4.8</div>
+                                        <div class="doctor-avail">✓ Disponible</div>
+                                    </div>
+                                    <div class="doctor-card" data-name="Dr. Andrés Rivas">
+                                        <div class="doctor-avatar av3">👨‍⚕️</div>
+                                        <div class="doctor-name">Dr. Andrés Rivas</div>
+                                        <div class="doctor-spec">Cardiología</div>
+                                        <div class="doctor-rating">⭐ 4.7</div>
+                                        <div class="doctor-avail">✓ Disponible</div>
+                                    </div>
+                                    <div class="doctor-card" data-name="Dra. Laura Torres">
+                                        <div class="doctor-avatar av4">👩‍⚕️</div>
+                                        <div class="doctor-name">Dra. Laura Torres</div>
+                                        <div class="doctor-spec">Dermatología</div>
+                                        <div class="doctor-rating">⭐ 4.9</div>
+                                        <div class="doctor-avail">✓ Disponible</div>
+                                    </div>
+                                    <div class="doctor-card" data-name="Dr. Roberto Díaz">
+                                        <div class="doctor-avatar av5">👨‍⚕️</div>
+                                        <div class="doctor-name">Dr. Roberto Díaz</div>
+                                        <div class="doctor-spec">Traumatología</div>
+                                        <div class="doctor-rating">⭐ 4.6</div>
+                                        <div class="doctor-avail">✓ Disponible</div>
+                                    </div>
+                                    <div class="doctor-card" data-name="Dra. Sofia Paredes">
+                                        <div class="doctor-avatar av6">👩‍⚕️</div>
+                                        <div class="doctor-name">Dra. Sofia Paredes</div>
+                                        <div class="doctor-spec">Oftalmología</div>
+                                        <div class="doctor-rating">⭐ 4.8</div>
+                                        <div class="doctor-avail">✓ Disponible</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Today's Appointments -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">📋 Citas de Hoy</span>
+                                <button class="btn btn-ghost" style="font-size:12px;">Ver todas</button>
+                            </div>
+                            <div class="card-body">
+                                <div class="appt-item">
+                                    <div class="appt-time-box">
+                                        <div class="appt-time">08:00</div>
+                                        <div class="appt-date">AM</div>
+                                    </div>
+                                    <div class="appt-info">
+                                        <div class="appt-name">María García Flores</div>
+                                        <div class="appt-detail">Dr. Mendoza · Medicina General</div>
+                                    </div>
+                                    <span class="appt-status confirmed">Confirmada</span>
+                                </div>
+                                <div class="appt-item">
+                                    <div class="appt-time-box">
+                                        <div class="appt-time">09:30</div>
+                                        <div class="appt-date">AM</div>
+                                    </div>
+                                    <div class="appt-info">
+                                        <div class="appt-name">Pedro Quispe Mamani</div>
+                                        <div class="appt-detail">Dra. López · Pediatría</div>
+                                    </div>
+                                    <span class="appt-status confirmed">Confirmada</span>
+                                </div>
+                                <div class="appt-item">
+                                    <div class="appt-time-box">
+                                        <div class="appt-time">10:00</div>
+                                        <div class="appt-date">AM</div>
+                                    </div>
+                                    <div class="appt-info">
+                                        <div class="appt-name">Rosa Chávez López</div>
+                                        <div class="appt-detail">Dr. Rivas · Cardiología</div>
+                                    </div>
+                                    <span class="appt-status pending">Pendiente</span>
+                                </div>
+                                <div class="appt-item">
+                                    <div class="appt-time-box">
+                                        <div class="appt-time">11:30</div>
+                                        <div class="appt-date">AM</div>
+                                    </div>
+                                    <div class="appt-info">
+                                        <div class="appt-name">Luis Fernando Tejada</div>
+                                        <div class="appt-detail">Dra. Torres · Dermatología</div>
+                                    </div>
+                                    <span class="appt-status pending">Pendiente</span>
+                                </div>
+                                <div class="appt-item">
+                                    <div class="appt-time-box">
+                                        <div class="appt-time">03:00</div>
+                                        <div class="appt-date">PM</div>
+                                    </div>
+                                    <div class="appt-info">
+                                        <div class="appt-name">Ana Belén Cornejo</div>
+                                        <div class="appt-detail">Dra. Paredes · Oftalmología</div>
+                                    </div>
+                                    <span class="appt-status confirmed">Confirmada</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Calendar + Time -->
+                    <div class="grid-col">
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">📅 Agendar Cita</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="calendar">
+                                    <div class="cal-header">
+                                        <span class="cal-title">Febrero 2026</span>
+                                        <div class="cal-nav">
+                                            <button class="cal-nav-btn">‹</button>
+                                            <button class="cal-nav-btn">›</button>
+                                        </div>
+                                    </div>
+                                    <div id="cal-grid" class="cal-grid"></div>
+                                </div>
+
+                                <div style="margin-bottom:16px;">
+                                    <div style="font-size:13px; font-weight:600; margin-bottom:10px;">⏰ Horarios
+                                        Disponibles</div>
+                                    <div class="time-slots">
+                                        <div class="time-slot taken">08:00</div>
+                                        <div class="time-slot">08:30</div>
+                                        <div class="time-slot taken">09:00</div>
+                                        <div class="time-slot taken">09:30</div>
+                                        <div class="time-slot">10:00</div>
+                                        <div class="time-slot">10:30</div>
+                                        <div class="time-slot taken">11:00</div>
+                                        <div class="time-slot">11:30</div>
+                                        <div class="time-slot">14:00</div>
+                                        <div class="time-slot taken">14:30</div>
+                                        <div class="time-slot">15:00</div>
+                                        <div class="time-slot">15:30</div>
+                                        <div class="time-slot">16:00</div>
+                                        <div class="time-slot taken">16:30</div>
+                                        <div class="time-slot">17:00</div>
+                                    </div>
+                                </div>
+
+                                <button class="btn btn-primary btn-block" style="margin-top:12px;">
+                                    📅 Confirmar Cita
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quick Info -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">ℹ️ Información</span>
+                            </div>
+                            <div class="card-body"
+                                style="font-size:13px; color:var(--text-secondary); line-height:1.8;">
+                                <p>📍 Av. Ejército 401, Cayma, Arequipa</p>
+                                <p>📞 +51 960 922 781</p>
+                                <p>✉️ juates1234@gmail.com</p>
+                                <p>🕐 Lun-Vie: 7:00 - 19:00</p>
+                                <p>🕐 Sáb: 8:00 - 13:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="app-footer">
+                    Desarrollado por <a href="mailto:juates1234@gmail.com">Juan Gabriel Aragón</a> ·
+                    juates1234@gmail.com · +51 960 922 781
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

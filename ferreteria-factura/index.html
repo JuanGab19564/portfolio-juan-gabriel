@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FerreMax - Sistema de facturación y punto de venta para ferretería">
+    <meta name="author" content="Juan Gabriel Aragón">
+    <title>FerreMax | Sistema de Facturación</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Toast -->
+    <div id="toast" class="toast">
+        <span class="toast-icon">✅</span>
+        <span id="toast-msg">Producto agregado</span>
+    </div>
+
+    <!-- Print Preview -->
+    <div id="print-preview" class="print-preview">
+        <button class="print-close" onclick="Invoice.closePrint()">×</button>
+        <div class="print-content" id="print-content"></div>
+    </div>
+
+    <div class="app-layout">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div class="logo-icon">🛠️</div>
+                    <div class="logo-text">Ferre<span>Max</span></div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <div class="nav-group-title">Principal</div>
+                    <div class="nav-item active">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Facturación
+                    </div>
+                    <div class="nav-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                        Inventario
+                    </div>
+                    <div class="nav-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Clientes
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">Reportes</div>
+                    <div class="nav-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        Ventas
+                    </div>
+                    <div class="nav-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Finanzas
+                    </div>
+                </div>
+                <div class="nav-group">
+                    <div class="nav-group-title">Sistema</div>
+                    <div class="nav-item">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Configuración
+                    </div>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar">JG</div>
+                    <div>
+                        <div class="sidebar-user-name">Juan Gabriel</div>
+                        <div class="sidebar-user-role">Administrador</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button id="menu-toggle" class="btn-menu-toggle">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <div>
+                        <div class="topbar-title">Punto de Venta</div>
+                        <div class="topbar-date">Lunes, 9 de Febrero 2026</div>
+                    </div>
+                </div>
+                <div class="topbar-right">
+                    <button class="topbar-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        <span class="topbar-notif"></span>
+                    </button>
+                    <button class="topbar-btn">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content">
+                <!-- Stats -->
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon orange">💰</div>
+                            <span class="stat-badge up">↑ 15.3%</span>
+                        </div>
+                        <div class="stat-value" data-counter="12450" data-prefix="S/" data-decimals="0">S/0</div>
+                        <div class="stat-label">Ventas del Día</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon green">📋</div>
+                            <span class="stat-badge up">↑ 8.7%</span>
+                        </div>
+                        <div class="stat-value" data-counter="47">0</div>
+                        <div class="stat-label">Facturas Emitidas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon blue">📦</div>
+                            <span class="stat-badge down">↓ 2.1%</span>
+                        </div>
+                        <div class="stat-value" data-counter="1248">0</div>
+                        <div class="stat-label">Productos en Stock</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-top">
+                            <div class="stat-icon red">👥</div>
+                            <span class="stat-badge up">↑ 5.4%</span>
+                        </div>
+                        <div class="stat-value" data-counter="186">0</div>
+                        <div class="stat-label">Clientes del Mes</div>
+                    </div>
+                </div>
+
+                <!-- Invoice -->
+                <div class="invoice-layout">
+                    <!-- Left: Invoice Form -->
+                    <div>
+                        <!-- Client Info -->
+                        <div class="card" style="margin-bottom: 20px;">
+                            <div class="card-header">
+                                <span class="card-title">📋 Datos del Cliente</span>
+                                <span style="font-size:13px; color:var(--accent);"
+                                    id="invoice-number">F001-000000</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label">Nombre / Razón Social</label>
+                                        <input type="text" id="client-name" class="form-input"
+                                            placeholder="Ingrese nombre del cliente">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">RUC / DNI</label>
+                                        <input type="text" id="client-ruc" class="form-input" placeholder="20xxxxxxxxx">
+                                    </div>
+                                </div>
+                                <div class="form-row" style="margin-bottom:0;">
+                                    <div class="form-group">
+                                        <label class="form-label">Dirección</label>
+                                        <input type="text" id="client-address" class="form-input"
+                                            placeholder="Dirección del cliente">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Método de Pago</label>
+                                        <select id="payment-method" class="form-select">
+                                            <option>Efectivo</option>
+                                            <option>Tarjeta</option>
+                                            <option>Yape/Plin</option>
+                                            <option>Transferencia</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Products -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">🛒 Detalle de Factura</span>
+                                <span id="items-count" style="font-size:13px; color:var(--text-muted);">0 items</span>
+                            </div>
+                            <div class="card-body" style="padding-bottom:0;">
+                                <div class="product-search">
+                                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
+                                    <input type="text" id="product-search"
+                                        placeholder="Buscar producto... (cemento, fierro, pintura, etc.)">
+                                    <div id="search-results"
+                                        style="position:absolute; top:100%; left:0; right:0; background:var(--bg-card); border:1px solid var(--border); border-radius:0 0 8px 8px; display:none; max-height:260px; overflow-y:auto; z-index:10;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="overflow-x:auto;">
+                                <table class="items-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>P. Unit.</th>
+                                            <th>Cantidad</th>
+                                            <th>Subtotal</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="invoice-items"></tbody>
+                                </table>
+                            </div>
+                            <div id="invoice-empty" style="text-align:center; padding:40px; color:var(--text-muted);">
+                                <div style="font-size:48px; margin-bottom:12px;">🧾</div>
+                                <div style="font-size:14px;">Busca y agrega productos para facturar</div>
+                                <div style="font-size:12px; margin-top:4px;">Usa el buscador o los accesos rápidos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Summary + Quick Add -->
+                    <div>
+                        <!-- Summary -->
+                        <div class="card summary-card" style="margin-bottom: 20px;">
+                            <div class="card-header">
+                                <span class="card-title">💰 Resumen</span>
+                            </div>
+                            <div class="card-body" id="invoice-summary">
+                                <div class="summary-section">
+                                    <div class="summary-row">
+                                        <span class="summary-label">Subtotal</span>
+                                        <span id="subtotal-value">S/0.00</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span class="summary-label">IGV (18%)</span>
+                                        <span id="igv-value">S/0.00</span>
+                                    </div>
+                                    <div class="summary-row total">
+                                        <span>TOTAL</span>
+                                        <span id="total-value">S/0.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn-group" style="flex-direction:column;">
+                                <button class="btn btn-primary btn-block" onclick="Invoice.generateInvoice()">
+                                    🖨️ Generar Factura
+                                </button>
+                                <button class="btn btn-secondary btn-block" onclick="Invoice.newInvoice()">
+                                    📄 Nueva Factura
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Quick Products -->
+                        <div class="card">
+                            <div class="card-header">
+                                <span class="card-title">⚡ Acceso Rápido</span>
+                            </div>
+                            <div class="card-body">
+                                <div id="quick-products" class="quick-products"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="app-footer">
+                    Desarrollado por <a href="mailto:juates1234@gmail.com">Juan Gabriel Aragón</a> ·
+                    juates1234@gmail.com · +51 960 922 781
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="TechZone - Tu tienda de tecnología. Computadoras, componentes, monitores, periféricos y más.">
+    <meta name="author" content="Juan Gabriel Aragón">
+    <title>TechZone | Tienda de Tecnología</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: { DEFAULT: '#3b82f6', dark: '#2563eb' }, accent: '#06b6d4', success: '#10b981', danger: '#ef4444' },
+                    fontFamily: { 'display': ['Outfit', 'sans-serif'], 'body': ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-body">
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="toast fixed top-24 right-6 bg-gray-800 text-white px-6 py-4 rounded-xl shadow-2xl z-50 flex items-center">
+        <svg class="w-5 h-5 text-green-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+        <span id="toast-message">Producto añadido</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-2">
+                    <span class="text-3xl">💻</span>
+                    <span class="font-display text-2xl font-bold text-gray-800">Tech<span
+                            class="text-primary">Zone</span></span>
+                </a>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex flex-1 max-w-xl mx-8">
+                    <div
+                        class="search-bar relative w-full flex items-center bg-gray-100 rounded-full border border-transparent">
+                        <svg class="w-5 h-5 text-gray-400 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        <input id="search-input" type="text" placeholder="Buscar productos..."
+                            class="w-full py-3 px-4 bg-transparent outline-none text-sm">
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center space-x-4">
+                    <button class="cart-trigger relative p-2 text-gray-600 hover:text-primary transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span
+                            class="cart-count absolute -top-1 -right-1 w-5 h-5 bg-danger text-white text-xs font-bold rounded-full items-center justify-center hidden">0</span>
+                    </button>
+                    <button id="menu-toggle" class="md:hidden p-2 text-gray-600">
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <nav id="mobile-menu" class="mobile-menu hidden md:hidden pb-4">
+                <div class="bg-white rounded-xl border border-gray-100 p-4 space-y-3 shadow-lg">
+                    <a href="#" class="block py-2 text-gray-600 hover:text-primary">Inicio</a>
+                    <a href="#productos" class="block py-2 text-gray-600 hover:text-primary">Productos</a>
+                    <a href="#categorias" class="block py-2 text-gray-600 hover:text-primary">Categorías</a>
+                    <a href="#ofertas" class="block py-2 text-gray-600 hover:text-primary">Ofertas</a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Categories Nav -->
+        <div class="hidden md:block bg-gray-800 text-white">
+            <div class="max-w-7xl mx-auto px-8">
+                <nav class="flex items-center space-x-8 h-12 text-sm">
+                    <a href="#" class="hover:text-accent transition-colors">🖥️ PC Gaming</a>
+                    <a href="#" class="hover:text-accent transition-colors">💻 Laptops</a>
+                    <a href="#" class="hover:text-accent transition-colors">🖱️ Periféricos</a>
+                    <a href="#" class="hover:text-accent transition-colors">🎧 Audio</a>
+                    <a href="#" class="hover:text-accent transition-colors">📺 Monitores</a>
+                    <a href="#" class="hover:text-accent transition-colors">🔧 Componentes</a>
+                    <a href="#ofertas" class="text-yellow-400 font-semibold hover:text-yellow-300">🔥 OFERTAS</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-overlay" class="cart-overlay fixed inset-0 bg-black/50 z-50"></div>
+    <aside id="cart-sidebar"
+        class="cart-sidebar fixed top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col">
+        <div class="flex items-center justify-between p-6 border-b">
+            <h2 class="font-display text-xl font-bold">Tu Carrito</h2>
+            <button id="close-cart" class="p-2 hover:bg-gray-100 rounded-full"><svg class="w-6 h-6" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg></button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto"></div>
+        <div class="p-6 border-t bg-gray-50">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-gray-600">Total:</span>
+                <span id="cart-total" class="font-display text-2xl font-bold text-primary">S/0.00</span>
+            </div>
+            <button id="checkout-btn" class="btn-checkout w-full py-4 text-white font-semibold rounded-xl"
+                disabled>Proceder al Pago</button>
+        </div>
+    </aside>
+
+    <!-- Hero -->
+    <section class="hero-gradient pt-40 pb-20 relative overflow-hidden">
+        <div class="hero-glow top-20 -left-20"></div>
+        <div class="hero-glow bottom-0 right-0"></div>
+        <div class="max-w-7xl mx-auto px-4 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right">
+                    <span
+                        class="inline-block px-4 py-2 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full mb-6">🚀
+                        Envío Gratis en pedidos +S/500</span>
+                    <h1
+                        class="font-display text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
+                        La Mejor <span class="text-accent">Tecnología</span> al Mejor Precio</h1>
+                    <p class="text-gray-300 text-lg mb-8 max-w-lg">Componentes, monitores, periféricos y todo lo que
+                        necesitas para tu setup gamer o de trabajo.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#productos"
+                            class="btn-add-cart inline-flex items-center px-8 py-4 text-white font-semibold rounded-xl">Ver
+                            Productos <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg></a>
+                        <a href="#ofertas"
+                            class="inline-flex items-center px-8 py-4 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/10 transition-colors">🔥
+                            Ver Ofertas</a>
+                    </div>
+                </div>
+                <div class="hidden lg:block" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                        alt="Setup Gaming" class="w-full rounded-2xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deals Banner -->
+    <section id="ofertas" class="bg-gradient-to-r from-red-500 to-orange-500 py-6">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="text-4xl">🔥</span>
+                    <div>
+                        <h3 class="font-display text-xl font-bold text-white">OFERTAS FLASH</h3>
+                        <p class="text-white/80 text-sm">Hasta 40% de descuento</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="text-white/80 text-sm">Termina en:</span>
+                    <div class="flex gap-2">
+                        <div class="timer-box px-3 py-2 rounded-lg text-center"><span id="timer-hours"
+                                class="font-display text-xl font-bold text-white">00</span><span
+                                class="text-white/60 text-xs block">HRS</span></div>
+                        <div class="timer-box px-3 py-2 rounded-lg text-center"><span id="timer-mins"
+                                class="font-display text-xl font-bold text-white">00</span><span
+                                class="text-white/60 text-xs block">MIN</span></div>
+                        <div class="timer-box px-3 py-2 rounded-lg text-center"><span id="timer-secs"
+                                class="font-display text-xl font-bold text-white">00</span><span
+                                class="text-white/60 text-xs block">SEG</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categorias" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-3">Categorías Populares</h2>
+                <p class="text-gray-500">Encuentra exactamente lo que buscas</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="category-card relative h-48 rounded-2xl overflow-hidden cursor-pointer shadow-md"
+                    data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                        alt="PC Gaming" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4"><span
+                            class="text-white font-display font-bold">🖥️ PC Gaming</span></div>
+                </div>
+                <div class="category-card relative h-48 rounded-2xl overflow-hidden cursor-pointer shadow-md"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                        alt="Monitores" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4"><span
+                            class="text-white font-display font-bold">📺 Monitores</span></div>
+                </div>
+                <div class="category-card relative h-48 rounded-2xl overflow-hidden cursor-pointer shadow-md"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                        alt="Periféricos" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4"><span
+                            class="text-white font-display font-bold">🖱️ Periféricos</span></div>
+                </div>
+                <div class="category-card relative h-48 rounded-2xl overflow-hidden cursor-pointer shadow-md"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                        alt="Componentes" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4"><span
+                            class="text-white font-display font-bold">🔧 Componentes</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section id="productos" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between mb-10" data-aos="fade-up">
+                <div>
+                    <h2 class="font-display text-3xl md:text-4xl font-bold">Productos Destacados</h2>
+                    <p class="text-gray-500 mt-1">Los más vendidos de la semana</p>
+                </div>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Product 1 -->
+                <div class="product-card rounded-2xl overflow-hidden" data-aos="fade-up">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        <span
+                            class="product-badge absolute top-3 left-3 px-3 py-1 text-white text-xs font-bold rounded-full z-10">-25%</span>
+                        <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Monitor Gaming" class="product-image w-full h-full object-cover">
+                        <div class="quick-view-btn absolute bottom-3 left-1/2 -translate-x-1/2"><span
+                                class="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">Vista
+                                Rápida</span></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs text-gray-400 uppercase tracking-wider">Monitores</span>
+                        <h3 class="font-medium text-gray-800 mt-1 line-clamp-2">Monitor Gaming 27" 165Hz IPS</h3>
+                        <div class="flex items-center gap-1 mt-2"><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-empty">★</span><span
+                                class="text-xs text-gray-400 ml-1">(124)</span></div>
+                        <div class="flex items-center gap-2 mt-3"><span
+                                class="price-original text-sm">S/1,299</span><span
+                                class="price-current text-xl">S/979</span></div>
+                        <button
+                            onclick="Products.addToCart(1, 'Monitor Gaming 27 165Hz', 979, 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=200')"
+                            data-product-btn="1"
+                            class="btn-add-cart w-full mt-4 py-3 text-white font-medium rounded-xl flex items-center justify-center"><svg
+                                class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg> Añadir</button>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="product-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        <span
+                            class="product-badge new absolute top-3 left-3 px-3 py-1 text-white text-xs font-bold rounded-full z-10">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Teclado Mecánico" class="product-image w-full h-full object-cover">
+                        <div class="quick-view-btn absolute bottom-3 left-1/2 -translate-x-1/2"><span
+                                class="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">Vista
+                                Rápida</span></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs text-gray-400 uppercase tracking-wider">Periféricos</span>
+                        <h3 class="font-medium text-gray-800 mt-1 line-clamp-2">Teclado Mecánico RGB Switches Blue</h3>
+                        <div class="flex items-center gap-1 mt-2"><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="text-xs text-gray-400 ml-1">(89)</span></div>
+                        <div class="flex items-center gap-2 mt-3"><span class="price-current text-xl">S/249</span></div>
+                        <button
+                            onclick="Products.addToCart(2, 'Teclado Mecánico RGB', 249, 'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=200')"
+                            data-product-btn="2"
+                            class="btn-add-cart w-full mt-4 py-3 text-white font-medium rounded-xl flex items-center justify-center"><svg
+                                class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg> Añadir</button>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="product-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        <span
+                            class="product-badge absolute top-3 left-3 px-3 py-1 text-white text-xs font-bold rounded-full z-10">-30%</span>
+                        <img src="https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="RTX 4070" class="product-image w-full h-full object-cover">
+                        <div class="quick-view-btn absolute bottom-3 left-1/2 -translate-x-1/2"><span
+                                class="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">Vista
+                                Rápida</span></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs text-gray-400 uppercase tracking-wider">Componentes</span>
+                        <h3 class="font-medium text-gray-800 mt-1 line-clamp-2">NVIDIA RTX 4070 Super 12GB</h3>
+                        <div class="flex items-center gap-1 mt-2"><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="text-xs text-gray-400 ml-1">(256)</span></div>
+                        <div class="flex items-center gap-2 mt-3"><span
+                                class="price-original text-sm">S/3,499</span><span
+                                class="price-current text-xl">S/2,449</span></div>
+                        <button
+                            onclick="Products.addToCart(3, 'RTX 4070 Super 12GB', 2449, 'https://images.unsplash.com/photo-1591370874773-6702e8f12fd8?w=200')"
+                            data-product-btn="3"
+                            class="btn-add-cart w-full mt-4 py-3 text-white font-medium rounded-xl flex items-center justify-center"><svg
+                                class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg> Añadir</button>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="product-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Mouse Gaming" class="product-image w-full h-full object-cover">
+                        <div class="quick-view-btn absolute bottom-3 left-1/2 -translate-x-1/2"><span
+                                class="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">Vista
+                                Rápida</span></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs text-gray-400 uppercase tracking-wider">Periféricos</span>
+                        <h3 class="font-medium text-gray-800 mt-1 line-clamp-2">Mouse Gaming Inalámbrico 25600 DPI</h3>
+                        <div class="flex items-center gap-1 mt-2"><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-empty">★</span><span
+                                class="text-xs text-gray-400 ml-1">(67)</span></div>
+                        <div class="flex items-center gap-2 mt-3"><span class="price-current text-xl">S/189</span></div>
+                        <button
+                            onclick="Products.addToCart(4, 'Mouse Gaming 25600 DPI', 189, 'https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=200')"
+                            data-product-btn="4"
+                            class="btn-add-cart w-full mt-4 py-3 text-white font-medium rounded-xl flex items-center justify-center"><svg
+                                class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg> Añadir</button>
+                    </div>
+                </div>
+                <!-- Product 5 -->
+                <div class="product-card rounded-2xl overflow-hidden" data-aos="fade-up">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="PC Gamer" class="product-image w-full h-full object-cover">
+                        <div class="quick-view-btn absolute bottom-3 left-1/2 -translate-x-1/2"><span
+                                class="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">Vista
+                                Rápida</span></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs text-gray-400 uppercase tracking-wider">PC Gaming</span>
+                        <h3 class="font-medium text-gray-800 mt-1 line-clamp-2">PC Gamer Ryzen 7 / RTX 4060 Ti</h3>
+                        <div class="flex items-center gap-1 mt-2"><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="text-xs text-gray-400 ml-1">(45)</span></div>
+                        <div class="flex items-center gap-2 mt-3"><span class="price-current text-xl">S/5,299</span>
+                        </div>
+                        <button
+                            onclick="Products.addToCart(5, 'PC Gamer Ryzen 7 RTX 4060', 5299, 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=200')"
+                            data-product-btn="5"
+                            class="btn-add-cart w-full mt-4 py-3 text-white font-medium rounded-xl flex items-center justify-center"><svg
+                                class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg> Añadir</button>
+                    </div>
+                </div>
+                <!-- Product 6 -->
+                <div class="product-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        <span
+                            class="product-badge absolute top-3 left-3 px-3 py-1 text-white text-xs font-bold rounded-full z-10">-15%</span>
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Audífonos" class="product-image w-full h-full object-cover">
+                        <div class="quick-view-btn absolute bottom-3 left-1/2 -translate-x-1/2"><span
+                                class="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">Vista
+                                Rápida</span></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs text-gray-400 uppercase tracking-wider">Audio</span>
+                        <h3 class="font-medium text-gray-800 mt-1 line-clamp-2">Audífonos Gaming 7.1 Surround RGB</h3>
+                        <div class="flex items-center gap-1 mt-2"><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-empty">★</span><span
+                                class="text-xs text-gray-400 ml-1">(98)</span></div>
+                        <div class="flex items-center gap-2 mt-3"><span class="price-original text-sm">S/349</span><span
+                                class="price-current text-xl">S/299</span></div>
+                        <button
+                            onclick="Products.addToCart(6, 'Audífonos Gaming 7.1', 299, 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200')"
+                            data-product-btn="6"
+                            class="btn-add-cart w-full mt-4 py-3 text-white font-medium rounded-xl flex items-center justify-center"><svg
+                                class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg> Añadir</button>
+                    </div>
+                </div>
+                <!-- Product 7 -->
+                <div class="product-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        <img src="https://images.unsplash.com/photo-1625842268584-8f3296236761?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="SSD" class="product-image w-full h-full object-cover">
+                        <div class="quick-view-btn absolute bottom-3 left-1/2 -translate-x-1/2"><span
+                                class="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">Vista
+                                Rápida</span></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs text-gray-400 uppercase tracking-wider">Almacenamiento</span>
+                        <h3 class="font-medium text-gray-800 mt-1 line-clamp-2">SSD NVMe 1TB Gen4 7000MB/s</h3>
+                        <div class="flex items-center gap-1 mt-2"><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="text-xs text-gray-400 ml-1">(312)</span></div>
+                        <div class="flex items-center gap-2 mt-3"><span class="price-current text-xl">S/389</span></div>
+                        <button
+                            onclick="Products.addToCart(7, 'SSD NVMe 1TB Gen4', 389, 'https://images.unsplash.com/photo-1625842268584-8f3296236761?w=200')"
+                            data-product-btn="7"
+                            class="btn-add-cart w-full mt-4 py-3 text-white font-medium rounded-xl flex items-center justify-center"><svg
+                                class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg> Añadir</button>
+                    </div>
+                </div>
+                <!-- Product 8 -->
+                <div class="product-card rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative h-56 overflow-hidden bg-gray-100">
+                        <span
+                            class="product-badge new absolute top-3 left-3 px-3 py-1 text-white text-xs font-bold rounded-full z-10">NUEVO</span>
+                        <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+                            alt="Silla Gamer" class="product-image w-full h-full object-cover">
+                        <div class="quick-view-btn absolute bottom-3 left-1/2 -translate-x-1/2"><span
+                                class="bg-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">Vista
+                                Rápida</span></div>
+                    </div>
+                    <div class="p-5">
+                        <span class="text-xs text-gray-400 uppercase tracking-wider">Mobiliario</span>
+                        <h3 class="font-medium text-gray-800 mt-1 line-clamp-2">Silla Gamer Ergonómica Pro RGB</h3>
+                        <div class="flex items-center gap-1 mt-2"><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-filled">★</span><span
+                                class="star-filled">★</span><span class="star-empty">★</span><span
+                                class="text-xs text-gray-400 ml-1">(156)</span></div>
+                        <div class="flex items-center gap-2 mt-3"><span class="price-current text-xl">S/899</span></div>
+                        <button
+                            onclick="Products.addToCart(8, 'Silla Gamer Ergonómica', 899, 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=200')"
+                            data-product-btn="8"
+                            class="btn-add-cart w-full mt-4 py-3 text-white font-medium rounded-xl flex items-center justify-center"><svg
+                                class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg> Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="feature-card flex items-center gap-4 p-6 bg-gray-50 rounded-2xl" data-aos="fade-up">
+                    <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-2xl">
+                        🚚</div>
+                    <div>
+                        <h4 class="font-semibold">Envío Gratis</h4>
+                        <p class="text-sm text-gray-500">En pedidos +S/500</p>
+                    </div>
+                </div>
+                <div class="feature-card flex items-center gap-4 p-6 bg-gray-50 rounded-2xl" data-aos="fade-up"
+                    data-aos-delay="100">
+                    <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-2xl">
+                        🛡️</div>
+                    <div>
+                        <h4 class="font-semibold">Garantía 2 Años</h4>
+                        <p class="text-sm text-gray-500">Cobertura total</p>
+                    </div>
+                </div>
+                <div class="feature-card flex items-center gap-4 p-6 bg-gray-50 rounded-2xl" data-aos="fade-up"
+                    data-aos-delay="200">
+                    <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-2xl">
+                        💳</div>
+                    <div>
+                        <h4 class="font-semibold">Pago Seguro</h4>
+                        <p class="text-sm text-gray-500">Todas las tarjetas</p>
+                    </div>
+                </div>
+                <div class="feature-card flex items-center gap-4 p-6 bg-gray-50 rounded-2xl" data-aos="fade-up"
+                    data-aos-delay="300">
+                    <div class="feature-icon w-14 h-14 rounded-xl flex items-center justify-center text-white text-2xl">
+                        📞</div>
+                    <div>
+                        <h4 class="font-semibold">Soporte 24/7</h4>
+                        <p class="text-sm text-gray-500">Siempre disponibles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-16 bg-gradient-to-r from-blue-600 to-cyan-500">
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <h2 class="font-display text-3xl font-bold text-white mb-3" data-aos="fade-up">¿Quieres ofertas exclusivas?
+            </h2>
+            <p class="text-white/80 mb-8" data-aos="fade-up">Suscríbete y recibe un 10% de descuento en tu primera
+                compra</p>
+            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" data-aos="fade-up">
+                <input type="email" placeholder="tu@email.com"
+                    class="newsletter-input flex-1 px-6 py-4 rounded-xl border-0 text-gray-800">
+                <button type="submit"
+                    class="px-8 py-4 bg-gray-900 text-white font-semibold rounded-xl hover:bg-gray-800 transition-colors">Suscribirse</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-6"><span class="text-3xl">💻</span><span
+                            class="font-display text-xl font-bold">Tech<span class="text-primary">Zone</span></span>
+                    </div>
+                    <p class="text-gray-400 text-sm">Tu tienda de tecnología de confianza. Los mejores productos al
+                        mejor precio.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Categorías</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white">PC Gaming</a></li>
+                        <li><a href="#" class="hover:text-white">Laptops</a></li>
+                        <li><a href="#" class="hover:text-white">Monitores</a></li>
+                        <li><a href="#" class="hover:text-white">Periféricos</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Ayuda</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-white">Envíos</a></li>
+                        <li><a href="#" class="hover:text-white">Devoluciones</a></li>
+                        <li><a href="#" class="hover:text-white">Garantía</a></li>
+                        <li><a href="#" class="hover:text-white">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li>📍 Arequipa, Perú</li>
+                        <li>📞 +51 960 922 781</li>
+                        <li>✉️ juates1234@gmail.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">© 2026 TechZone.
+                Desarrollado por <a href="mailto:juates1234@gmail.com" class="text-primary hover:text-blue-400">Juan
+                    Gabriel Aragón</a></div>
+        </div>
+    </footer>
+
+    <!-- Scroll Top -->
+    <button id="scroll-top-btn"
+        class="scroll-top-btn fixed bottom-8 right-8 w-12 h-12 rounded-full text-white shadow-lg flex items-center justify-center z-40"><svg
+            class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg></button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

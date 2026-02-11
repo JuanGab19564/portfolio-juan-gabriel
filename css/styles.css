@@ -1,0 +1,286 @@
+/* ==========================================================================
+   JUAN GABRIEL ARAGÓN - Portfolio
+   Version: 1.0.0
+   ========================================================================== */
+
+:root {
+    --color-dark: #0f0f0f;
+    --color-dark-soft: #1a1a1a;
+    --color-dark-card: #141414;
+    --color-accent: #6366f1;
+    --color-accent-light: #818cf8;
+    --color-accent-glow: rgba(99, 102, 241, 0.3);
+    --color-success: #10b981;
+    --color-text: #f5f5f5;
+    --color-text-muted: #a3a3a3;
+    --color-border: #262626;
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-dark);
+    color: var(--color-text);
+    line-height: 1.7;
+    overflow-x: hidden;
+}
+
+.font-display {
+    font-family: var(--font-display);
+}
+
+/* Header */
+.header {
+    transition: background-color var(--transition), backdrop-filter var(--transition);
+}
+
+.header.scrolled {
+    background-color: rgba(15, 15, 15, 0.9);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light));
+    transition: width var(--transition);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    transition: all var(--transition);
+}
+
+.mobile-menu.hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+.mobile-menu.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Hero */
+.hero-gradient {
+    background: radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse at bottom right, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+}
+
+.glow-text {
+    background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent-light) 50%, var(--color-accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.avatar-glow {
+    box-shadow: 0 0 60px var(--color-accent-glow), 0 0 100px rgba(99, 102, 241, 0.15);
+}
+
+/* Status Badge */
+.status-badge {
+    animation: pulse-status 2s ease-in-out infinite;
+}
+
+@keyframes pulse-status {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+    }
+}
+
+/* Project Cards */
+.project-card {
+    background: var(--color-dark-card);
+    border: 1px solid var(--color-border);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--color-accent-glow);
+    border-color: var(--color-accent);
+}
+
+.project-image {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.08);
+}
+
+.project-overlay {
+    background: linear-gradient(180deg, transparent 0%, rgba(15, 15, 15, 0.95) 100%);
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+/* Tech Tags */
+.tech-tag {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    transition: all var(--transition);
+}
+
+.tech-tag:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: var(--color-accent);
+}
+
+/* Skills */
+.skill-card {
+    background: var(--color-dark-card);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition);
+}
+
+.skill-card:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 30px var(--color-accent-glow);
+}
+
+.skill-icon {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+    transition: all var(--transition);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.5);
+}
+
+.btn-outline {
+    border: 2px solid var(--color-border);
+    transition: all var(--transition);
+}
+
+.btn-outline:hover {
+    border-color: var(--color-accent);
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--color-accent-light);
+}
+
+/* Contact Form */
+.form-input {
+    background: var(--color-dark-soft);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition);
+}
+
+.form-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-glow);
+    outline: none;
+}
+
+/* Social Icons */
+.social-icon {
+    transition: all var(--transition);
+}
+
+.social-icon:hover {
+    color: var(--color-accent);
+    transform: translateY(-4px);
+}
+
+/* Scroll to Top */
+.scroll-top-btn {
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition);
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
+}
+
+/* Cursor Glow Effect */
+.cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+    transition: transform 0.1s ease;
+}
+
+/* Animations */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.float-animation {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .cursor-glow {
+        display: none;
+    }
+}

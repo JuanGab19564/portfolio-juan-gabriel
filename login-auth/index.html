@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SecureAuth - Sistema de autenticación moderno y seguro">
+    <meta name="author" content="Juan Gabriel Aragón">
+    <title>SecureAuth | Iniciar Sesión</title>
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <div class="auth-container">
+        <!-- Left Panel -->
+        <div class="auth-brand">
+            <div class="brand-content">
+                <div class="brand-logo">
+                    <div class="brand-icon">🔐</div>
+                    <span>Secure<strong>Auth</strong></span>
+                </div>
+                <h1 class="brand-title">Bienvenido de vuelta</h1>
+                <p class="brand-desc">Accede a tu cuenta para gestionar tus proyectos, colaborar con tu equipo y
+                    mantener todo bajo control.</p>
+                <div class="brand-features">
+                    <div class="brand-feature">
+                        <div class="feature-dot"></div>
+                        <span>Autenticación segura 2FA</span>
+                    </div>
+                    <div class="brand-feature">
+                        <div class="feature-dot"></div>
+                        <span>Cifrado de extremo a extremo</span>
+                    </div>
+                    <div class="brand-feature">
+                        <div class="feature-dot"></div>
+                        <span>Gestión de sesiones activas</span>
+                    </div>
+                </div>
+                <div class="brand-stats">
+                    <div class="brand-stat">
+                        <div class="brand-stat-value">25K+</div>
+                        <div class="brand-stat-label">Usuarios</div>
+                    </div>
+                    <div class="brand-stat">
+                        <div class="brand-stat-value">99.9%</div>
+                        <div class="brand-stat-label">Uptime</div>
+                    </div>
+                    <div class="brand-stat">
+                        <div class="brand-stat-value">256-bit</div>
+                        <div class="brand-stat-label">Cifrado</div>
+                    </div>
+                </div>
+            </div>
+            <div class="brand-footer">
+                Desarrollado por Juan Gabriel Aragón
+            </div>
+        </div>
+
+        <!-- Right Panel: Forms -->
+        <div class="auth-forms">
+            <!-- Login Form -->
+            <div id="login-form" class="form-panel active">
+                <div class="form-header">
+                    <h2 class="form-title">Iniciar Sesión</h2>
+                    <p class="form-subtitle">Ingresa tus credenciales para acceder</p>
+                </div>
+
+                <div class="social-login">
+                    <button class="social-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path
+                                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"
+                                fill="#4285F4" />
+                            <path
+                                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                                fill="#34A853" />
+                            <path
+                                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                                fill="#FBBC05" />
+                            <path
+                                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                                fill="#EA4335" />
+                        </svg>
+                        Google
+                    </button>
+                    <button class="social-btn">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                        GitHub
+                    </button>
+                </div>
+
+                <div class="divider">
+                    <span>o continúa con email</span>
+                </div>
+
+                <form class="auth-form" onsubmit="event.preventDefault(); Auth.login();">
+                    <div class="input-group">
+                        <label class="input-label">Correo Electrónico</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <input type="email" class="form-input" placeholder="tu@email.com" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="input-label-row">
+                            <label class="input-label">Contraseña</label>
+                            <a href="#" class="forgot-link" onclick="Auth.showPanel('forgot-form')">¿Olvidaste?</a>
+                        </div>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            <input type="password" class="form-input" placeholder="••••••••" required>
+                            <button type="button" class="toggle-pass" onclick="Auth.togglePassword(this)">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="remember-row">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                            Recordar sesión
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Iniciar Sesión
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </button>
+                </form>
+
+                <p class="form-footer">
+                    ¿No tienes cuenta? <a href="#" onclick="Auth.showPanel('register-form')">Crear cuenta gratis</a>
+                </p>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="form-panel">
+                <div class="form-header">
+                    <h2 class="form-title">Crear Cuenta</h2>
+                    <p class="form-subtitle">Regístrate y comienza a gestionar tus proyectos</p>
+                </div>
+
+                <form class="auth-form" onsubmit="event.preventDefault(); Auth.register();">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label class="input-label">Nombre</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <input type="text" class="form-input" placeholder="Juan" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Apellido</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                <input type="text" class="form-input" placeholder="Aragón" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Correo Electrónico</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <input type="email" class="form-input" placeholder="tu@email.com" required>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Contraseña</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            <input type="password" class="form-input" id="reg-password"
+                                placeholder="Mínimo 8 caracteres" required oninput="Auth.checkStrength(this.value)">
+                        </div>
+                        <div class="password-strength">
+                            <div class="strength-bar">
+                                <div id="strength-fill" class="strength-fill"></div>
+                            </div>
+                            <span id="strength-text" class="strength-text">Ingresa una contraseña</span>
+                        </div>
+                    </div>
+                    <div class="remember-row">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" required>
+                            <span class="checkmark"></span>
+                            Acepto los <a href="#">Términos</a> y <a href="#">Política de Privacidad</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Crear Cuenta
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </button>
+                </form>
+
+                <p class="form-footer">
+                    ¿Ya tienes cuenta? <a href="#" onclick="Auth.showPanel('login-form')">Iniciar Sesión</a>
+                </p>
+            </div>
+
+            <!-- Forgot Password -->
+            <div id="forgot-form" class="form-panel">
+                <div class="form-header">
+                    <a href="#" class="back-link" onclick="Auth.showPanel('login-form')">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Volver
+                    </a>
+                    <div class="forgot-icon">🔑</div>
+                    <h2 class="form-title">Recuperar Contraseña</h2>
+                    <p class="form-subtitle">Ingresa tu email y te enviaremos un enlace para restablecer tu contraseña
+                    </p>
+                </div>
+
+                <form class="auth-form" onsubmit="event.preventDefault(); Auth.recover();">
+                    <div class="input-group">
+                        <label class="input-label">Correo Electrónico</label>
+                        <div class="input-wrapper">
+                            <svg class="input-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            <input type="email" class="form-input" placeholder="tu@email.com" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">
+                        Enviar Enlace de Recuperación
+                        <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success Message -->
+            <div id="success-panel" class="form-panel">
+                <div class="success-content">
+                    <div class="success-icon">✅</div>
+                    <h2 class="form-title">¡Acción Exitosa!</h2>
+                    <p id="success-msg" class="form-subtitle">Tu acción ha sido completada correctamente.</p>
+                    <button class="btn-submit" onclick="Auth.showPanel('login-form')">Volver al Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>
